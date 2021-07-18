@@ -2,7 +2,6 @@
 """
 Created on Sun May 31 15:03:11 2020
 
-@author: bryan79
 """
 
 import os
