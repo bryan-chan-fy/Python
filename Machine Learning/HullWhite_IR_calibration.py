@@ -83,7 +83,6 @@ model1=Sequential()
 model1.add(Dense(64,activation='relu'))
 model1.add(Dense(64,activation='relu'))
 model1.add(Dense(64,activation='relu'))
-#model1.add(Dense(32,activation='relu'))
 model1.add(Dense(1))
 
 model2=Sequential()
