@@ -95,7 +95,7 @@ def rm_func(i,dt,xi,dY,r):
 def rd_func(i,dt,xi,dY,r):
 return dt*0.5*(xi**2)*(1/(dY**2)+1/(2*dY)) 
 
-#=== Computation – Finite Difference Method (FDM) for particular T ===
+#=== Computation â€“ Finite Difference Method (FDM) for particular T ===
 
 for oo in range(len(rholist)):   # Loop rho
     rho=rholist[oo]
@@ -182,7 +182,7 @@ for oo in range(len(rholist)):   # Loop rho
 
 #=== Read price data, store in 2D-matrix, convert into implied vol. ===
 
-# Read from CSV file – price data
+# Read from CSV file â€“ price data
 ix=0;
 dtr=[['']*((M+1)*(N+1)+9) for s in range(300)]
 with open(r'C:\Users\Documents\Python files\SABRdata1.csv', 'r',) as file:
@@ -228,14 +228,14 @@ for ix in range(0,300):
         fi+=1            
 
 
-# Function return call option price with vol. input – Black’s equation
+# Function return call option price with vol. input â€“ Blackâ€™s equation
 def f(sigma):
     d1=(np.log(F0/(K+1e-99))+0.5*(sigma**2)*T)/(sigma*np.sqrt(T))
     d2=(np.log(F0/(K+1e-99))-0.5*(sigma**2)*T)/(sigma*np.sqrt(T))
     return F0*norm.cdf(d1)-(K+1e-99)*norm.cdf(d2)
     
 
-# Dekker’s root-finding function 
+# Dekkerâ€™s root-finding function 
 def Dekker(target,a,b,tol,f):
     fa=f(a)
     fb=f(b)
@@ -378,13 +378,14 @@ for Tidx in range(len(Tlist)):  # Loop T
                     vol_2[indx]=float(inpdat[nix2][3]) # Imp vol for Fo=3.5
                     indx+=1
                                 
-   	# Append to Data Frame         df=df.append({'rho':rho_1,'xi':xi_1,'T':T_1,'v0':v0_1,'F0':F01_v,'vol1':vol_1[0],'vol2':vol_1[1],'vol3':vol_1[2],'vol4':vol_1[3],'vol5':vol_1[4],'vol6':vol_1[5],'vol7':vol_1[6],'vol8':vol_1[7],'vol9':vol_1[8]},ignore_index=True)
+   		# Append to Data Frame         
+		df=df.append({'rho':rho_1,'xi':xi_1,'T':T_1,'v0':v0_1,'F0':F01_v,'vol1':vol_1[0],'vol2':vol_1[1],'vol3':vol_1[2],'vol4':vol_1[3],'vol5':vol_1[4],'vol6':vol_1[5],'vol7':vol_1[6],'vol8':vol_1[7],'vol9':vol_1[8]},ignore_index=True)
                 df=df.append({'rho':rho_1,'xi':xi_1,'T':T_1,'v0':v0_1,'F0':F02_v,'vol1':vol_2[0],'vol2':vol_2[1],'vol3':vol_2[2],'vol4':vol_2[3],'vol5':vol_2[4],'vol6':vol_2[5],'vol7':vol_2[6],'vol8':vol_2[7],'vol9':vol_2[8]},ignore_index=True)
 
 
-#=== Plot DFM implied vol. with Hagan’s implied vol ===
+#=== Plot DFM implied vol. with Haganâ€™s implied vol ===
 
-# Function: Hagan’s approximation for implied volatilities
+# Function: Haganâ€™s approximation for implied volatilities
 def calc_impvol(rho_,xi_,V0_,T_,F0_,K_,beta_):
     q=(F0_*K_)**((1-beta_)/2)*(1+((1-beta_)**2)*(np.log(F0_/K_)**2)/24 + (((1-beta_)**4)/1920)*(np.log(F0_/K_)**4))
     z=(xi_/V0_)*((F0_*K_)**((1-beta_)/2)*np.log(F0_/K_))
@@ -401,13 +402,13 @@ v0_p=float(df[['v0']].loc[i])
 F0_p=float(df[['F0']].loc[i])
 beta_p=1
 yp=[df[['vol1']].loc[i],df[['vol2']].loc[i],df[['vol3']].loc[i],df[['vol4']].loc[i],df[['vol5']].loc[i],df[['vol6']].loc[i],df[['vol7']].loc[i],df[['vol8']].loc[i],df[['vol9']].loc[i]]  # DFM plot values
-yhag=[]   # Hold Hagan’s plot values
+yhag=[]   # Hold Haganâ€™s plot values
 for n in range(len(Klist)-1):  # Choose the correct Strikes for Fo=3.0 or Fo=3.5
     if (i%2)==0:  # Fo=3.0
         K_p=Klist[n]
     else:
         K_p=Klist[n+1]
-    xpp=calc_impvol(rho_p,xi_p,v0_p,T_p,F0_p,K_p+1e-199,beta_p) # Hagan’s imp vol.
+    xpp=calc_impvol(rho_p,xi_p,v0_p,T_p,F0_p,K_p+1e-199,beta_p) # Haganâ€™s imp vol.
     yhag.append(xpp)
 
 if (i%2)==0:  # Fo=3.0
@@ -564,7 +565,7 @@ for i in range(ncv):
     inputs=Input(shape=(5,),name='input')
     x=Dense(160,activation='relu',name='160L1')(inputs)
     x=Dropout(0.2)(x)
-    x=Dense(160,activation='relu',name=’160L2')(x)
+    x=Dense(160,activation='relu',name=â€™160L2')(x)
     output1=Dense(1,name='vol1_out')(x)
     output2=Dense(1,name='vol2_out')(x)
     output3=Dense(1,name='vol3_out')(x)
@@ -574,8 +575,7 @@ for i in range(ncv):
     output7=Dense(1,name='vol7_out')(x)
     output8=Dense(1,name='vol8_out')(x)
     output9=Dense(1,name='vol9_out')(x)
-model2 = Model(inputs=inputs,outputs=[output1,output2,output3,output4,output5,
-output6,output7,output8,output9])
+    model2 = Model(inputs=inputs,outputs=[output1,output2,output3,output4,output5,output6,output7,output8,output9])
     model2.compile(loss={'vol1_out':'mean_squared_error',
                         'vol2_out': 'mean_squared_error',
                         'vol3_out': 'mean_squared_error',
@@ -808,20 +808,20 @@ v0_opt=prod_sum3/weight_sum3	# Calibrated/Optimum V0
 rho_=rho_opt
 xi_=xi_opt
 v0_=v0_opt
-#rho_=-0.4874  # Excel Solver’s Hagan’s approx. optimized parameters
+#rho_=-0.4874  # Excel Solverâ€™s Haganâ€™s approx. optimized parameters
 #xi_=1
 #v0_=0.6279 
 pdif_sum=0
 voldat=[[]*1 for s in range(len(mktinp))]
 perdif=[[]*1 for s in range(len(mktinp))]
-results=[[]*1 for s in range(len(mktinp))]  # Holds Hagan’s implied vol.
+results=[[]*1 for s in range(len(mktinp))]  # Holds Haganâ€™s implied vol.
 off_list=mktdatraw[0][0:-2]
 for n in range(len(mktinp)):	# Loop each T
     Tn_=mktinp[n][len(mktinp[n])-2]
     F0n_=mktinp[n][len(mktinp[n])-1]
     for m in range(len(off_list)):
         Km_=F0n_+0.01*float(off_list[m])  # Relative Strikes
-        impvol=calc_impvol(rho_,xi_,v0_,Tn_,F0n_,Km_,beta)  # Hagan’s imp. vol.
+        impvol=calc_impvol(rho_,xi_,v0_,Tn_,F0n_,Km_,beta)  # Haganâ€™s imp. vol.
         results[n].append(impvol)
         print("%.4f vs %.4f"%(impvol,mktinp[n][m]))
         pdif=(impvol-mktinp[n][m])**2	# Square Error
@@ -837,7 +837,7 @@ print(np.sqrt(pdif_sum/(6*len(mktinp))))  # Print RMSE
 rho_=rho_opt
 xi_=xi_opt
 v0_=v0_opt
-#rho_=-0.4874 # Excel Solver’s Hagan’s approx. optimized parameters
+#rho_=-0.4874 # Excel Solverâ€™s Haganâ€™s approx. optimized parameters
 #xi_=1 
 #v0_=0.6279 
 pdif_sum2=0
